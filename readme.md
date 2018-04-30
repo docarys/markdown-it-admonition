@@ -18,7 +18,7 @@ This is the admonition body
 This will output the following HTML
 
 ```html
-<div class="admonition danger">
+<div class="admonition note">
 <p class="admonition-title">This is the admonition title</p>
 <p>This is the admonition body</p>
 </div>
