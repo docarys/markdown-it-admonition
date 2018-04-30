@@ -1,0 +1,31 @@
+{
+  "name": "markdown-it-admonition",
+  "version": "1.0.0",
+  "description": "Markdown-it admonition plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/docarys/markdown-it-admonition.git"
+  },
+  "keywords": [
+    "markdown-it",
+    "admonition"
+  ],
+  "author": "Sergio Sisternes <sesispla@outlook.com>",
+  "files": [
+    "readme.md",
+    "LICENSE",
+    "index.js"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/docarys/markdown-it-admonition/issues"
+  },
+  "homepage": "https://github.com/docarys/markdown-it-admonition#readme",
+  "devDependencies": {
+    "markdown-it": "^8.4.1"
+  }
+}
