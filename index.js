@@ -21,7 +21,7 @@ module.exports = function admonitionPlugin(md, options) {
       var token = tokens[idx];
   
       if (token.type === "admonition_open") {
-          tokens[idx].attrPush([ "class", "admonition " + type ]);
+          tokens[idx].attrPush([ "class", "admonition " + token.info ]);
       }
       else if (token.type === "admonition_title_open") {
           tokens[idx].attrPush([ "class", "admonition-title"]);
