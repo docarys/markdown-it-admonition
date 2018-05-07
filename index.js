@@ -15,32 +15,27 @@ module.exports = function admonitionPlugin(md, options) {
       type        = "",
       title       = null,
       types       = ["note", "abstract", "info", "tip", "success", "question", "warning", "failure", "danger", "bug", "example", "quote"];
-    
+
   function renderDefault(tokens, idx, _options, env, self) {
 
       var token = tokens[idx];
-  
+
       if (token.type === "admonition_open") {
           tokens[idx].attrPush([ "class", "admonition " + token.info ]);
       }
       else if (token.type === "admonition_title_open") {
           tokens[idx].attrPush([ "class", "admonition-title"]);
       }
-  
+
       return self.renderToken(tokens, idx, _options, env, self);
     }
 
     function validateDefault(params) {
-      var array = params.trim().split(" ", 2);
-      type = array[0];
-      if (params.length > type.length + 2) {
-          title = params.substring(type.length + 2, params.length);
-      }
-  
-      if (!title) {
-          title = type;
-      }
-  
+      type = params.trim().split(" ", 2)[0];
+
+      if (array.length > 1) { title = array[1]; }
+        else { title = type; }
+
       return types.includes(type);
     }
 
@@ -70,6 +65,7 @@ module.exports = function admonitionPlugin(md, options) {
 
     markup = state.src.slice(start, pos);
     params = state.src.slice(pos, max);
+
     if (!validate(params)) { return false; }
 
     // Since start is found, we can report success here in validation mode
@@ -164,11 +160,12 @@ module.exports = function admonitionPlugin(md, options) {
     return true;
   }
 
-  md.block.ruler.before("code", "admonition", admonition, {
+  md.block.ruler.before("block", "admonition", admonition, {
     alt: ["paragraph", "reference", "blockquote", "list" ]
   });
   md.renderer.rules["admonition_open"] = render;
   md.renderer.rules["admonition_title_open"] = render;
   md.renderer.rules["admonition_title_close"] = render;
   md.renderer.rules["admonition_close"] = render;
+  return;
 };
