@@ -15,32 +15,34 @@ module.exports = function admonitionPlugin(md, options) {
       type        = "",
       title       = null,
       types       = ["note", "abstract", "info", "tip", "success", "question", "warning", "failure", "danger", "bug", "example", "quote"];
-    
+
   function renderDefault(tokens, idx, _options, env, self) {
 
       var token = tokens[idx];
-  
+
       if (token.type === "admonition_open") {
           tokens[idx].attrPush([ "class", "admonition " + token.info ]);
       }
+
       else if (token.type === "admonition_title_open") {
           tokens[idx].attrPush([ "class", "admonition-title"]);
       }
-  
+
       return self.renderToken(tokens, idx, _options, env, self);
     }
 
-    function validateDefault(params) {
+    function validateDefault(params){
       var array = params.trim().split(" ", 2);
+      title = "";
       type = array[0];
-      if (params.length > type.length + 2) {
-          title = params.substring(type.length + 2, params.length);
+      if ( (array.length > 1) ) {
+          title = array[1]
       }
-  
-      if (!title) {
+
+      if ( title === "" || !title ) {
           title = type;
       }
-  
+
       return types.includes(type);
     }
 
