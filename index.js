@@ -23,6 +23,7 @@ module.exports = function admonitionPlugin(md, options) {
       if (token.type === "admonition_open") {
           tokens[idx].attrPush([ "class", "admonition " + token.info ]);
       }
+
       else if (token.type === "admonition_title_open") {
           tokens[idx].attrPush([ "class", "admonition-title"]);
       }
@@ -30,11 +31,17 @@ module.exports = function admonitionPlugin(md, options) {
       return self.renderToken(tokens, idx, _options, env, self);
     }
 
-    function validateDefault(params) {
-      type = params.trim().split(" ", 2)[0];
+    function validateDefault(params){
+      var array = params.trim().split(" ", 2);
+      title = "";
+      type = array[0];
+      if ( (array.length > 1) ) {
+          title = array[1]
+      }
 
-      if (array.length > 1) { title = array[1]; }
-        else { title = type; }
+      if ( title === "" || !title ) {
+          title = type;
+      }
 
       return types.includes(type);
     }
@@ -65,7 +72,6 @@ module.exports = function admonitionPlugin(md, options) {
 
     markup = state.src.slice(start, pos);
     params = state.src.slice(pos, max);
-
     if (!validate(params)) { return false; }
 
     // Since start is found, we can report success here in validation mode
@@ -160,12 +166,11 @@ module.exports = function admonitionPlugin(md, options) {
     return true;
   }
 
-  md.block.ruler.before("block", "admonition", admonition, {
+  md.block.ruler.before("code", "admonition", admonition, {
     alt: ["paragraph", "reference", "blockquote", "list" ]
   });
   md.renderer.rules["admonition_open"] = render;
   md.renderer.rules["admonition_title_open"] = render;
   md.renderer.rules["admonition_title_close"] = render;
   md.renderer.rules["admonition_close"] = render;
-  return;
 };
