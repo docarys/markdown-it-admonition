@@ -14,7 +14,7 @@ module.exports = function admonitionPlugin(md, options) {
       render      = renderDefault,
       type        = "",
       title       = null,
-      types       = ["note", "abstract", "info", "tip", "success", "question", "warning", "failure", "danger", "bug", "example", "quote"];
+      types       = ["note", "hint", "attention", "caution", "danger", "error"];
 
   function renderDefault(tokens, idx, _options, env, self) {
 
@@ -36,7 +36,7 @@ module.exports = function admonitionPlugin(md, options) {
       title = "";
       type = array[0];
       if ( (array.length > 1) ) {
-          title = array[1]
+          title = params.substring(title.length + 2)
       }
 
       if ( title === "" || !title ) {
