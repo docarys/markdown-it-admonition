@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-admonition",
-  "version": "1.0.1",
+  "version": "1.0.1-BOOSTNOTE",
   "description": "Markdown-it admonition plugin",
   "main": "index.js",
   "scripts": {
