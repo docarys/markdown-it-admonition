@@ -2,8 +2,7 @@
 
 A simple admonition plugin for markdown-it
 
-> DISCLAIMER: This plugin do not provide CSS. Only transforms Markdown to HTML. Providing a CSS stylesheet is in your hand.
-> Cool examples of CSS for markdown-it-admonition can be found at [docarys](http://docs.docarys.io) documenation
+This plugin has been adapted for use with boostnote. Credit to @Docarys for providiungt the full plugin. This variant reduced the number of admonition types from the original 12 down to 6. 
 
 ## Usage
 
@@ -28,17 +27,11 @@ The following adminition types are recognized by this plugin:
 
 | Type       |
 | -----------|
-| note       |
-| abstract   |
-| info       |
-| tip        |
-| success    |
-| question   |
-| warning    |
-| failure    |
-| danger     |
-| bug        |
-| example    |
-| quote"     |
+|  note | 
+| hint|
+| attention |
+| caution |
+| danger |
+| error |
 
-> if no title is specified, adminition type will be used as default title.
+> if no title is specified, admonition type will be used as default title.
