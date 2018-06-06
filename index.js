@@ -36,7 +36,7 @@ module.exports = function admonitionPlugin(md, options) {
       title = "";
       type = array[0];
       if ( (array.length > 1) ) {
-          title = params.substring(title.length + 2)
+          title = params.substring(type.length + 2)
       }
 
       if ( title === "" || !title ) {
