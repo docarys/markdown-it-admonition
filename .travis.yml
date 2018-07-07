@@ -8,8 +8,6 @@ os:
   - linux
   # - osx
   # - windows
-before_install:
-- npm install
 jobs:
   include:
     - stage: Test
