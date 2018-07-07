@@ -30,15 +30,23 @@ This will output the following HTML
 </div>
 ```
 
-The following adminition types are recognized by this plugin:
+The following adminition types, supported by Docarys, are recognized by this plugin:
 
-| Type       |
-| -----------|
-|  note | 
-| hint|
-| attention |
-| caution |
-| danger |
-| error |
+ | Type       |
+ | -----------|
+ | note       |
+ | abstract   |
+ | info       |
+ | tip        |
+ | success    |
+ | question   |
+ | warning    |
+ | failure    |
+ | danger     |
+ | bug        |
+ | example    |
+ | quote"     |
+ 
+ You can customize the types you want to use by passing it as opts.
 
 > if no title is specified, admonition type will be used as default title.
