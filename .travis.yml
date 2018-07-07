@@ -1,0 +1,16 @@
+sudo: false
+language: node_js
+node_js:
+- '7'
+- '8'
+- '9'
+os:
+  - linux
+  # - osx
+  # - windows
+before_install:
+- npm install
+jobs:
+  include:
+    - stage: Test
+      script: npm test
