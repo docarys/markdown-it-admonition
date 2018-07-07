@@ -16,12 +16,12 @@ A simple admonition plugin for markdown-it
 To use this plugin, simply:
 
 ```bash
-npm install markdown-it-adminition --save
+npm install markdown-it-admonition --save
 ```
 
 ```js
     var markdown = require("markdown-it")({html: true})        
-        .use(require("markdown-it-adminition"));
+        .use(require("markdown-it-admonition"));
 ```
 
 ```md
