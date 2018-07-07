@@ -1,0 +1,11 @@
+#5 Bad admonition title
+.
+!!! note Note Title
+admonition body
+!!!
+.
+<div class="admonition note">
+<p class="admonition-title">Note Title</p>
+<p>admonition body</p>
+</div>
+.

@@ -3,7 +3,6 @@
 
 module.exports = function admonitionPlugin(md, options) {
 
-
   options = options || {};
 
   var minMarkers = 3,
@@ -14,7 +13,7 @@ module.exports = function admonitionPlugin(md, options) {
       render      = renderDefault,
       type        = "",
       title       = null,
-      types       = ["note", "hint", "attention", "caution", "danger", "error"];
+      types       = options.types || ["note", "abstract", "info", "tip", "success", "question", "warning", "failure", "danger", "bug", "example", "quote"];
 
   function renderDefault(tokens, idx, _options, env, self) {
 
@@ -35,8 +34,8 @@ module.exports = function admonitionPlugin(md, options) {
       var array = params.trim().split(" ", 2);
       title = "";
       type = array[0];
-      if ( (array.length > 1) ) {
-          title = params.substring(title.length + 2)
+      if (array.length > 1) {
+          title = params.substring(type.length + 2);
       }
 
       if ( title === "" || !title ) {
