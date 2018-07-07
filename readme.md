@@ -1,3 +1,12 @@
+[![Travis][travis-image]][travis-link]
+[![npm][npm-image]][npm-link]
+
+
+[travis-image]: https://travis-ci.org/docarys/markdown-it-admonition.svg?branch=master
+[travis-link]: https://travis-ci.org/docarys/markdown-it-admonition
+[npm-image]: https://img.shields.io/npm/dt/markdown-it-admonition.svg
+[npm-link]: https://www.npmjs.com/package/markdown-it-admonition
+
 # Admonition plug-in
 
 A simple admonition plugin for markdown-it
