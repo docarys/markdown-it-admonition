@@ -34,8 +34,8 @@ module.exports = function admonitionPlugin(md, options) {
       var array = params.trim().split(" ", 2);
       title = "";
       type = array[0];
-      if ( (array.length > 1) ) {
-          title = params.substring(title.length + 2)
+      if (array.length > 1) {
+          title = params.substring(type.length + 2);
       }
 
       if ( title === "" || !title ) {
