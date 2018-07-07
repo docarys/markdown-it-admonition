@@ -2,11 +2,18 @@
 
 A simple admonition plugin for markdown-it
 
-This plugin has been adapted for use with boostnote. Credit to @Docarys for providiungt the full plugin. This variant reduced the number of admonition types from the original 12 down to 6. 
-
 ## Usage
 
 To use this plugin, simply:
+
+```bash
+npm install markdown-it-adminition --save
+```
+
+```js
+    var markdown = require("markdown-it")({html: true})        
+        .use(require("markdown-it-adminition"));
+```
 
 ```md
 !!! note This is the admonition title
