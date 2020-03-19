@@ -28,6 +28,6 @@
   "devDependencies": {
     "markdown-it": "^8.4.1",
     "markdown-it-testgen": "^0.1.4",
-    "mocha": "^5.2.0"
+    "mocha": "^7.1.1"
   }
 }
