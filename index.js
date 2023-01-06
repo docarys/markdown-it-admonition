@@ -1,61 +1,52 @@
 "use strict";
 
-
 module.exports = function admonitionPlugin(md, options) {
-
-  options = options || {};
-
-  var minMarkers = 3,
-      markerStr  = options.marker || "!",
-      markerChar = markerStr.charCodeAt(0),
-      markerLen  = markerStr.length,
-      validate    = validateDefault,
-      render      = renderDefault,
-      type        = "",
-      title       = null,
-      types       = options.types || ["note", "abstract", "info", "tip", "success", "question", "warning", "failure", "danger", "bug", "example", "quote"];
-
   function renderDefault(tokens, idx, _options, env, self) {
+    var token = tokens[idx];
 
-      var token = tokens[idx];
-
-      if (token.type === "admonition_open") {
-          tokens[idx].attrPush([ "class", "admonition " + token.info ]);
-      }
-
-      else if (token.type === "admonition_title_open") {
-          tokens[idx].attrPush([ "class", "admonition-title"]);
-      }
-
-      return self.renderToken(tokens, idx, _options, env, self);
+    if (token.type === "admonition_open") {
+      tokens[idx].attrPush(["class", "admonition " + token.info]);
+    } else if (token.type === "admonition_title_open") {
+      tokens[idx].attrPush(["class", "admonition-title"]);
     }
 
-    function validateDefault(params){
-      var array = params.trim().split(" ", 2);
-      title = "";
-      type = array[0];
-      if (array.length > 1) {
-          title = params.substring(type.length + 2);
-      }
+    return self.renderToken(tokens, idx, _options, env, self);
+  }
 
-      if ( title === "" || !title ) {
-          title = type;
-      }
-
-      return types.includes(type);
+  function validateDefault(params) {
+    var array = params.trim().split(" ", 2);
+    title = "";
+    type = array[0];
+    if (array.length > 1) {
+      title = params.substring(type.length + 2);
     }
+
+    if (title === "" || !title) {
+      title = type;
+    }
+
+    return types.includes(type);
+  }
 
   function admonition(state, startLine, endLine, silent) {
-    var pos, nextLine, markerCount, markup, params, token,
-        oldParent, oldLineMax,
-        autoClosed = false,
-        start = state.bMarks[startLine] + state.tShift[startLine],
-        max = state.eMarks[startLine];
+    var pos,
+      nextLine,
+      markerCount,
+      markup,
+      params,
+      token,
+      oldParent,
+      oldLineMax,
+      autoClosed = false,
+      start = state.bMarks[startLine] + state.tShift[startLine],
+      max = state.eMarks[startLine];
 
     // Check out the first character quickly,
     // this should filter out most of non-containers
     //
-    if (markerChar !== state.src.charCodeAt(start)) { return false; }
+    if (markerChar !== state.src.charCodeAt(start)) {
+      return false;
+    }
 
     // Check out the rest of the marker string
     //
@@ -66,16 +57,22 @@ module.exports = function admonitionPlugin(md, options) {
     }
 
     markerCount = Math.floor((pos - start) / markerLen);
-    if (markerCount < minMarkers) { return false; }
+    if (markerCount < minMarkers) {
+      return false;
+    }
     pos -= (pos - start) % markerLen;
 
     markup = state.src.slice(start, pos);
     params = state.src.slice(pos, max);
-    if (!validate(params)) { return false; }
+    if (!validate(params)) {
+      return false;
+    }
 
     // Since start is found, we can report success here in validation mode
     //
-    if (silent) { return true; }
+    if (silent) {
+      return true;
+    }
 
     // Search for the end of the block
     //
@@ -99,7 +96,9 @@ module.exports = function admonitionPlugin(md, options) {
         break;
       }
 
-      if (markerChar !== state.src.charCodeAt(start)) { continue; }
+      if (markerChar !== state.src.charCodeAt(start)) {
+        continue;
+      }
 
       if (state.sCount[nextLine] - state.blkIndent >= 4) {
         // closing fence should be indented less than 4 spaces
@@ -113,13 +112,17 @@ module.exports = function admonitionPlugin(md, options) {
       }
 
       // closing adminition fence must be at least as long as the opening one
-      if (Math.floor((pos - start) / markerLen) < markerCount) { continue; }
+      if (Math.floor((pos - start) / markerLen) < markerCount) {
+        continue;
+      }
 
       // make sure tail has spaces only
       pos -= (pos - start) % markerLen;
       pos = state.skipSpaces(pos);
 
-      if (pos < max) { continue; }
+      if (pos < max) {
+        continue;
+      }
 
       // found!
       autoClosed = true;
@@ -133,30 +136,30 @@ module.exports = function admonitionPlugin(md, options) {
     // this will prevent lazy continuations from ever going past our end marker
     state.lineMax = nextLine;
 
-    token        = state.push("admonition_open", "div", 1);
+    token = state.push("admonition_open", "div", 1);
     token.markup = markup;
-    token.block  = true;
-    token.info   = type;
-    token.map    = [ startLine, nextLine ];
+    token.block = true;
+    token.info = type;
+    token.map = [startLine, nextLine];
 
     // admonition title
-    token        = state.push("admonition_title_open", "p", 1);
+    token = state.push("admonition_title_open", "p", 1);
     token.markup = markup + " " + type;
-    token.map    = [ startLine, nextLine ];
+    token.map = [startLine, nextLine];
 
-    token          = state.push("inline", "", 0);
-    token.content  = title;
-    token.map      = [ startLine, state.line - 1 ];
+    token = state.push("inline", "", 0);
+    token.content = title;
+    token.map = [startLine, state.line - 1];
     token.children = [];
 
-    token        = state.push("admonition_title_close", "p", -1);
+    token = state.push("admonition_title_close", "p", -1);
     token.markup = markup + " " + type;
 
     state.md.block.tokenize(state, startLine + 1, nextLine);
 
-    token        = state.push("admonition_close", "div", -1);
+    token = state.push("admonition_close", "div", -1);
     token.markup = state.src.slice(start, pos);
-    token.block  = true;
+    token.block = true;
 
     state.parentType = oldParent;
     state.lineMax = oldLineMax;
@@ -165,8 +168,33 @@ module.exports = function admonitionPlugin(md, options) {
     return true;
   }
 
+  options = options || {};
+
+  var minMarkers = 3,
+    markerStr = options.marker || "!",
+    markerChar = markerStr.charCodeAt(0),
+    markerLen = markerStr.length,
+    validate = validateDefault,
+    render = renderDefault,
+    type = "",
+    title = null,
+    types = options.types || [
+      "note",
+      "abstract",
+      "info",
+      "tip",
+      "success",
+      "question",
+      "warning",
+      "failure",
+      "danger",
+      "bug",
+      "example",
+      "quote",
+    ];
+
   md.block.ruler.before("code", "admonition", admonition, {
-    alt: ["paragraph", "reference", "blockquote", "list" ]
+    alt: ["paragraph", "reference", "blockquote", "list"],
   });
   md.renderer.rules["admonition_open"] = render;
   md.renderer.rules["admonition_title_open"] = render;
